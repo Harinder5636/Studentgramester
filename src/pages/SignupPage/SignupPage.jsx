@@ -1,9 +1,63 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import { Button, Form, Grid, Header, Image, Segment } from 'semantic-ui-react'
+import userService from '../../utils/userService';
+
+
 
 export default function SignUpPage(props){
+
+
+  const [error, setError] = useState('')
+  const [state, setState] = useState({
+    username: '',
+    email: '',
+    password: '',
+    passwordConf: '',
+    school: ''
+  })
+  
+  const [selectedFile, setSelectedFile] = useState('')
+  
+  
+  function handleFileInput(e){
+    console.log(e.target.files)
+    setSelectedFile(e.target.files[0])
+  }
+  
+  function handleChange(e){
+    setState({
+      ...state,
+      [e.target.name]: e.target.value
+    })
+   }
+   
+   
+   async function handleSubmit(e){
+     e.preventDefault()
+     
+     const formData = new FormData();
+     
+     formData.append('photo', selectedFile)
+
+     for (let fieldName in state){
+      formData.append(fieldName, state[fieldName])
+    }
+   
+    try {
+      
+      await userService.signup(formData);
+      
+      
+    } catch (err) {
+      setError(err.message)
+    }
+   }
+
     
+
+
+
     return (
       <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="middle">
       <Grid.Column style={{ maxWidth: 450 }}>
@@ -44,9 +98,10 @@ export default function SignUpPage(props){
               required
             />
             <Form.TextArea
-              label="bio"
-              name="bio"
-              placeholder="Tell us more about your dogs..."
+              label="school"
+              name="school"
+              value={state.school}
+              placeholder="School"
               onChange={handleChange}
             />
             <Form.Field>
