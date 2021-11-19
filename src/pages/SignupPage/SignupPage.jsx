@@ -2,13 +2,16 @@ import React, { useState } from 'react';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import { Button, Form, Grid, Header, Image, Segment } from 'semantic-ui-react'
 import userService from '../../utils/userService';
+import { useNavigate } from 'react-router-dom';
 
 
+export default function SignUpPage(props) {
 
-export default function SignUpPage(props){
+
+  const navigate = useNavigate();
 
 
-  const [error, setError] = useState('')
+  const [error, setError] = useState('');
   const [state, setState] = useState({
     username: '',
     email: '',
@@ -44,10 +47,13 @@ export default function SignUpPage(props){
       formData.append(fieldName, state[fieldName])
     }
    
+
     try {
       
       await userService.signup(formData);
-      
+
+      props.handleSignupOrLogin()
+      navigate('/')
       
     } catch (err) {
       setError(err.message)
@@ -62,7 +68,7 @@ export default function SignUpPage(props){
       <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="middle">
       <Grid.Column style={{ maxWidth: 450 }}>
         <Header as="h2" color="teal" textAlign="center">
-          <Image src="https://i.imgur.com/s4LrnlU.png" /> Sign Up
+          <Image/> Sign Up
         </Header>
         <Form autoComplete="off" onSubmit={handleSubmit}>
           <Segment stacked>
@@ -97,8 +103,8 @@ export default function SignUpPage(props){
               onChange={handleChange}
               required
             />
-            <Form.TextArea
-              label="school"
+            <Form.Input
+              type="school"
               name="school"
               value={state.school}
               placeholder="School"
