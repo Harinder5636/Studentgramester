@@ -5,10 +5,10 @@ import userService from '../../utils/userService';
 import { useNavigate, Link } from 'react-router-dom';
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 
-export default function LoginPage(props){
+export default function LoginPage({handleSignUpOrLogin}){
     const [invalidForm, setValidForm] = useState(false);
-    const [error, setError ]          = useState('')
-    const [state, setState]       = useState({
+    const [error, setError] = useState('')
+    const [state, setState] = useState({
         email: '',
         password: '',
     })
@@ -21,22 +21,30 @@ export default function LoginPage(props){
         [e.target.name]: e.target.value
       })
     }
-   
     
-
+    
+    
     async function handleSubmit(e){
-      e.preventDefault()
-              
+      
       try {
-          await userService.login(state);
-          props.handleSignUpOrLogin()
-          navigate('/')
-          
+        e.preventDefault()
+         await userService.login(state);
+         handleSignUpOrLogin()
+         navigate('/')
+         
+        
+        
         } catch (err) {
-          // Invalid user data (probably duplicate email)
+          
           setError(err.message)
         }
-    }
+      }
+
+    
+ 
+
+
+
 
     return (
         <>

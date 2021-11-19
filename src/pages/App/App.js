@@ -12,7 +12,7 @@ function App() {
   const [user, setUser] = useState(userService.getUser())
 
   function handleSignupOrLogin(){
-    setUser(userService.getUser());
+    console.log('it is define')
   }
 
 
@@ -20,7 +20,7 @@ function App() {
   return (
       <Routes>
           <Route path='/' element={<Feed />} />
-          <Route path="/login" element={<LoginPage />} />
+          <Route path="/login" element={<LoginPage handleSignupOrLogin={handleSignupOrLogin}/>} />
           
           <Route path="/signup" element={<SignupPage handleSignupOrLogin={handleSignupOrLogin} />} />
       </Routes>

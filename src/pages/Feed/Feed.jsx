@@ -8,16 +8,19 @@ export default function Feed(props){
 
     const [posts, setPosts] = useState([])
 
+
     async function handleAddPost (post){
-        try {
-            const data = await postsApi.create(post)
-        } catch(err){
+     
+        const data = await postsApi.create(post);
+        
+        console.log(data, 'data')
 
-        }
+        setPosts([data.post, ...posts])
+      }
 
-    }
 
 
+      
 
     return (
         <>
