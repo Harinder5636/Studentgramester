@@ -16,7 +16,7 @@ async function profile(req, res){
   try{
     const user = await User.findOne({username: req.params.username})
     if(!user) return res.status(404).json({err: 'user not found'})
-    const posts = await Post.find({user: user._id});
+    const posts = await Post.find({user: user._id}).populate("user").exec();
     console.log(posts, 'this posts')
     res.status(200).json({posts: posts, user: user})
   } catch(err){

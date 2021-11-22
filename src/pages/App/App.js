@@ -6,7 +6,7 @@ import LoginPage from '../LoginPage/LoginPage';
 import ProfilePage from '../ProfilePage/ProfilePage';
 import userService from '../../utils/userService';
 import Feed from '../Feed/Feed'
-
+import Layout from "../Layout/Layout";
 
 function App() {
 
@@ -19,14 +19,19 @@ function App() {
 
 
   return (
-      <Routes>
-          <Route path='/' element={<Feed />} />
-          <Route path="/login" element={<LoginPage handleSignupOrLogin={handleSignupOrLogin}/>} />
-          
-          <Route path="/signup" element={<SignupPage handleSignupOrLogin={handleSignupOrLogin} />} />
-          <Route path="/:username" element={<ProfilePage />}/>
-      </Routes>
-  );
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Feed />}></Route>
+        <Route 
+          path="/login" 
+          element={<LoginPage handleSignupOrLogin={handleSignupOrLogin}/>} 
+          />
+        
+        <Route path="/signup" element={<SignupPage handleSignupOrLogin={handleSignupOrLogin} />} />
+        <Route path="/:username" element={<ProfilePage />}/>
+        </Route>
+    </Routes>
+);
 }
 
 export default App;

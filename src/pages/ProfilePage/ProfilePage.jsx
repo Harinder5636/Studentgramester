@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import {  Grid } from 'semantic-ui-react'
+import {  Grid } from 'semantic-ui-react';
+import Loading from "../../components/Loader/Loader";
 import ProfileBio from '../../components/ProfileBio/ProfileBio';
 import ProfilePostDisplay from '../../components/ProfilePostDisplay/ProfilePostDisplay';
-import Header from '../../components/Header/Header';
+import PostFeed from "../../components/PostFeed/PostFeed";
 import { useParams } from 'react-router-dom'
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage'
 import userService from "../../utils/userService";
@@ -16,7 +17,7 @@ export default function ProfilePage(){
 
     const { username } = useParams();
 
-
+    useEffect(() => {
     async function getProfile() {
         try {
 
@@ -28,54 +29,38 @@ export default function ProfilePage(){
 
         } catch(err){
             // console.log(err, "error in profile page ")
-            setError("Profile doesn't exist")
+            setError(err.message);
         }
     }
-
-    useEffect(() => {
         getProfile()
-    }, []);
+    }, [username]);
 
 
 
-
-
-    if(loading){
-        return(
-            <>
-                <Header />
-                <h1> Loading............</h1>
-            </>
-        )
-        }
 
     if(error){
-        return(
-                <>
-                    <Header />
-                    <ErrorMessage error={error} />
-                </>
-            )
-            }
+        return <ErrorMessage error={error} />;
+    }
+
+    if(loading){
+        return <Loading />;
+        }
+
+
 
     
     return (
-            <Grid>
-                <Grid.Row>
-                    <Grid.Column>
-                    <Header />
-                    </Grid.Column>
-                </Grid.Row>
+            <Grid centered>
                 <Grid.Row>
                     <Grid.Column>
                         <ProfileBio user={user}/>
                     </Grid.Column>
                 </Grid.Row>
-                <Grid.Row centered>
+                <Grid.Row>
                     <Grid.Column style={{ maxWidth: 750 }}>
-                        <ProfilePostDisplay />
+                        <PostFeed isProfile={true} posts={posts} numPhotosCol={2} />
                     </Grid.Column>
                 </Grid.Row>
             </Grid>     
-    )
+    );
 }
