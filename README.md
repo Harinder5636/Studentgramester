@@ -4,7 +4,7 @@
 
 
 ### 'Background'
-
+I wanted to create a application which is very similar to instagram but only includes students. This would make it easier for students that go to the same school to come together and plan events.
 
 
 ### 'Screenshots:'
@@ -21,7 +21,10 @@ MongoDB/Mongoose | Express | React | Node | Javascript | CSS
 
 ### `Link`
 
+[Lucid](https://lucid.app/lucidchart/371a9d1f-4746-4731-99f2-4ff54e7b7ec6/edit?from_docslist=true&invitationId=inv_40381ee2-d99d-4dbf-9687-a443169204ba&page=0_0#)
+
+[Trello](https://trello.com/b/sFuDZD4E/project-4)
 
 ## 'Next Step'
-
+In the near future I plan on implementing many more features to the application including a path to add comments on each post, limiting posts per page, and deleting post cards. 
 
