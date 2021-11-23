@@ -28,7 +28,8 @@ export default function LoginPage({handleSignUpOrLogin}){
       
       try {
         e.preventDefault()
-         await userService.login(state);
+         await userService.login(state)
+         handleSignUpOrLogin()
          navigate('/')
          
         

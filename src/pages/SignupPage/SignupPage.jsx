@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import { Button, Form, Grid, Header, Image, Segment } from 'semantic-ui-react'
 import userService from '../../utils/userService';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 
 
 
-export default function SignUpPage(props) {
-
-  const {navigate} = useNavigate()
+export default function SignUpPage({handleSignupOrLogin}) {
+console.log(handleSignupOrLogin)
+  const navigate = useNavigate()
 
 
 
@@ -37,7 +37,9 @@ export default function SignUpPage(props) {
    }
    
    
-   async function handleSubmit(){
+   async function handleSubmit(e){
+
+    e.preventDefault()
     
     try {
 
@@ -53,10 +55,16 @@ export default function SignUpPage(props) {
     
       
       const respond = await userService.signup(formData);
-      console.log(respond)
+      console.log(respond);
+      handleSignupOrLogin()
+      console.log('handlesighuporloginworking')
+      navigate('/')
 
 
-     navigate("/")
+
+
+
+     
 
       
     } catch (err) {

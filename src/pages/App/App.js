@@ -10,7 +10,9 @@ import Layout from "../Layout/Layout";
 
 function App() {
 
-  const [user, setUser] = useState(userService.getUser())
+  const [user, setUser] = useState(null)
+
+  console.log(user)
 
   function handleSignupOrLogin(){
     console.log('it is define')
@@ -43,7 +45,7 @@ return (
     />
     <Route 
     path="/signup"
-    element={<SignupPage handleSignUpOrLogin={handleSignupOrLogin} />}
+    element={<SignupPage handleSignupOrLogin={handleSignupOrLogin} />}
     />
     <Route path="/*" element={<Navigate to="/login" />} />
   </Routes>
