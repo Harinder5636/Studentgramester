@@ -4,8 +4,18 @@ const postsCtrl = require('../../controllers/posts');
 const multer  = require('multer');
 const upload = multer();
 
-router.post('/', upload.single('photo'), postsCtrl.create);
+router.post('/', isAuthorized, upload.single('photo'), postsCtrl.create);
 router.get('/', postsCtrl.index)
+
+
+function isAuthorized (req, res, next){
+    if(req.user){
+        return next()
+    } else {
+        res.status(401).json({message: 'Not Authorized'})
+    
+    }
+}
 
 
 module.exports = router; 

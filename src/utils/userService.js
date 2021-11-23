@@ -1,24 +1,33 @@
 import tokenService from './tokenService';
 
+
 const BASE_URL = '/api/users/';
 
 function signup(user) {
   return fetch(BASE_URL + 'signup', {
     method: 'POST',
-    // headers: new Headers({'Content-Type': 'application/json'}), 
-    // If you are sending a file/photo over
-    // what do datatype do you need to change this too?
+
     body: user
   })
   .then(res => {
-    if (res.ok) return res.json();
-    // Probably a duplicate email
-    throw new Error('Email already taken!');
+    if (res.ok) { return res.json()}
+    else {
+      throw new Error(res);
+    }
+    
   })
-  // Parameter destructuring!
-  .then(({token}) => tokenService.setToken(token));
-  // The above could have been written as
-  //.then((token) => token.token);
+ 
+  .then(({token}) => tokenService.setToken(token))
+  .then(()=> {
+    console.log("wowowowowow")
+    return true
+  
+  })
+  .catch(err => {
+    console.log(err)
+    return err
+  })
+
 }
 
 function getUser() {
@@ -38,9 +47,16 @@ function login(creds) {
   .then(res => {
     // Valid login if we have a status of 2xx (res.ok)
     if (res.ok) return res.json();
-    throw new Error('Bad Credentials!');
+    throw new Error(res);
   })
-  .then(({token}) => tokenService.setToken(token));
+
+  .then(({token}) => tokenService.setToken(token))
+  .catch(err => {
+    console.log(err)
+    return err
+  }
+
+  )
 }
 
 function getProfile(username){

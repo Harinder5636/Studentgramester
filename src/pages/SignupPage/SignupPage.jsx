@@ -5,10 +5,11 @@ import userService from '../../utils/userService';
 import { useNavigate } from 'react-router-dom';
 
 
+
 export default function SignUpPage(props) {
 
+  const {navigate} = useNavigate()
 
-  const navigate = useNavigate();
 
 
   const [error, setError] = useState('');
@@ -36,24 +37,27 @@ export default function SignUpPage(props) {
    }
    
    
-   async function handleSubmit(e){
-     e.preventDefault()
-     
-     const formData = new FormData();
-     
-     formData.append('photo', selectedFile)
-
-     for (let fieldName in state){
-      formData.append(fieldName, state[fieldName])
-    }
-   
-
+   async function handleSubmit(){
+    
     try {
-      
-      await userService.signup(formData);
 
-      props.handleSignupOrLogin()
-      navigate('/')
+
+     
+      const formData = new FormData();
+      
+      formData.append('photo', selectedFile)
+ 
+      for (let fieldName in state){
+       formData.append(fieldName, state[fieldName])
+     }
+    
+      
+      const respond = await userService.signup(formData);
+      console.log(respond)
+
+
+     navigate("/")
+
       
     } catch (err) {
       setError(err.message)
@@ -118,12 +122,13 @@ export default function SignUpPage(props) {
                 onChange={handleFileInput}
               />
             </Form.Field>
-            <Button type="submit" className="btn">
-              Signup
-            </Button>
+           
           </Segment>
           {error ? <ErrorMessage error={error} /> : null}
         </Form>
+        <Button type="submit" onClick={handleSubmit} className="btn">
+              Signup
+            </Button>
       </Grid.Column>
     </Grid>
       );

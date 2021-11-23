@@ -8,7 +8,10 @@ export default function PostFeed({
     numPhotosCol,
     isProfile,
     loading,
-    user
+    user,
+    addLike,
+    removeLike
+
 }) {
 
     return (
@@ -28,6 +31,8 @@ export default function PostFeed({
                             key={post._id} 
                             isProfile={isProfile}
                             user={user}
+                            removeLike={removeLike}
+                            addLike={addLike}
                             />
                     );
                 })}

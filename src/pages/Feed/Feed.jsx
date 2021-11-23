@@ -4,6 +4,7 @@ import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import PostFeed from "../../components/PostFeed/PostFeed"
 import PostForm from "../../components/PostForm/PostForm"
 import * as postsApi from '../../utils/postApi'
+import * as likesApi from '../../utils/likesApi'
 import { Grid } from "semantic-ui-react";
 
 
@@ -29,7 +30,29 @@ export default function Feed(props){
     }
 
 
-
+    async function addLike(postId){
+        try {
+            const data = await likesApi.create(postId);
+            console.log(data, ' <- this is data the response from likes create')
+            getPosts()
+  
+        } catch(err){
+            console.log(err)
+            setError(err.message)
+        }
+    }
+  
+    async function removeLike(likesId){
+      try {
+          const data = await likesApi.removeLike(likesId);
+          console.log(data, ' <- this is data the response from likes delete')
+          getPosts()
+  
+      } catch(err){
+          console.log(err)
+          setError(err.message)
+      }	
+    }
 
 
     async function getPosts(){
@@ -74,6 +97,9 @@ export default function Feed(props){
               isProfile={false}
               numPhotoCol={1}
               loading={loading}
+              user={props.user}
+              addLike={addLike}
+              removeLike={removeLike}
               />
             </Grid.Column>
             </Grid.Row>
