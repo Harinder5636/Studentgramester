@@ -15,6 +15,9 @@ I wanted to create a application which is very similar to instagram but only inc
 
 <img width="1440" alt="Screen Shot 2021-11-23 at 3 59 22 AM" src="https://user-images.githubusercontent.com/89468381/143020470-b06d0500-ee3d-485f-bf15-fdefaaecd8a0.png">
 
+<img width="477" alt="Screen Shot 2021-11-23 at 11 35 50 AM" src="https://user-images.githubusercontent.com/89468381/143091947-3868a49d-2e6c-437e-8171-d926d481b0f3.png">
+
+
 ### `Technologies Used:`
 
 MongoDB/Mongoose | Express | React | Node | Javascript | CSS
